@@ -1,6 +1,6 @@
 {
   "name": "sle/typo3-exceptionhandler",
-  "type": "composer-plugin",
+  "type": "library",
   "license": "MIT",
   "description": "A TYPO3 advanced exception handling package.",
   "authors": [
