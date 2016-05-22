@@ -10,11 +10,16 @@
     }
   ],
   "keywords": [
-    "typo3, exception, exceptionhandler, productionExceptionHandler, errorHandler, logging"
+    "typo3",
+    "exception",
+    "exceptionhandler" ,
+    "productionExceptionHandler" ,
+    "errorHandler" ,
+    "logging"
   ],
   "require": {
     "php": ">=5.5",
-    "typo3/cms": "~6 || ~7"
+    "typo3/cms": "~6||~7"
   },
   "autoload": {
     "psr-4": {
