@@ -1,0 +1,24 @@
+{
+  "name": "sle/typo3-exceptionhandler",
+  "type": "composer-plugin",
+  "license": "MIT",
+  "description": "A TYPO3 advanced exception handling package.",
+  "authors": [
+    {
+      "name": "Steve Lenz",
+      "email": "kontakt@steve-lenz.de"
+    }
+  ],
+  "keywords": [
+    "typo3, exception, exceptionhandler, productionExceptionHandler, errorHandler, logging"
+  ],
+  "require": {
+    "php": ">=5.5",
+    "typo3/cms": "~6 || ~7"
+  },
+  "autoload": {
+    "psr-4": {
+      "Sle\\TYPO3\\ExceptionHandler": "TYPO3/ExceptionHandler"
+    }
+  }
+}
