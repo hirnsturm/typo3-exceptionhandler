@@ -10,7 +10,6 @@ use TYPO3\CMS\Core\Utility\MailUtility;
  *
  * @author Steve Lenz <kontakt@steve-lenz.de>
  * @copyright (c) 2015, Steve Lenz
- * @version 1.0.0
  */
 class ErrorHandler extends \TYPO3\CMS\Core\Error\ErrorHandler
 {
@@ -46,6 +45,7 @@ class ErrorHandler extends \TYPO3\CMS\Core\Error\ErrorHandler
     public function shutdown()
     {
         $error = error_get_last();
+
         if (E_ERROR == $error['type']) {
             $this->sendNotificationMail($error['type'], $error['message'], $error['file'], $error['line']);
         }
@@ -67,21 +67,24 @@ class ErrorHandler extends \TYPO3\CMS\Core\Error\ErrorHandler
         $message = array();
         $message[] = 'Level: ' . $this->getErrorType($errorLevel);
         $message[] = 'Message: ' . $errorMessage;
-        $message[] = 'Server name:  ' . filter_input(INPUT_SERVER, 'SERVER_NAME');
-        $message[] = 'Request URI:  ' . filter_input(INPUT_SERVER, 'REQUEST_URI');
+        $message[] = 'Server name: ' . filter_input(INPUT_SERVER, 'SERVER_NAME');
+        $message[] = 'Request URI: ' . PHP_EOL
+            . filter_input(INPUT_SERVER, 'SERVER_NAME')
+            . filter_input(INPUT_SERVER, 'REQUEST_URI');
         $message[] = 'File: ' . $errorFile;
         $message[] = 'Line: ' . $errorLine;
 
         try {
-            // Send mail
+            /** @var \TYPO3\CMS\Core\Mail\MailMessage $mail */
             $mail = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
             $mail->setFrom(MailUtility::getSystemFrom())
                 ->setTo(array($GLOBALS['TYPO3_CONF_VARS']['BE']['warning_email_addr']))
-                ->setSubject(MailUtility::getSystemFromName() . ' - ' . getErrorType($errorLevel))
+                ->setSubject(MailUtility::getSystemFromName() . ' - ' . $this->getErrorType($errorLevel))
                 ->setBody(implode(PHP_EOL . PHP_EOL, $message))
                 ->send();
         } catch (\Exception $e) {
-            $logger = GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
+            //** @var $logger \TYPO3\CMS\Core\Log\Logger */
+            $logger = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Log\\LogManager')->getLogger(__CLASS__);
             $logger->error('Could not send exception message to system admin!', array($e->__toString()));
         }
     }
@@ -107,6 +110,8 @@ class ErrorHandler extends \TYPO3\CMS\Core\Error\ErrorHandler
             E_STRICT            => 'STRICT NOTICE',
             E_RECOVERABLE_ERROR => 'RECOVERABLE ERROR',
         );
+
         return isset($errorTypes[$errorLevel]) ? $errorTypes[$errorLevel] : 'UNKNOWN ERROR';
     }
+
 }
