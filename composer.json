@@ -18,7 +18,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Sle\\TYPO3\\ExceptionHandler": "TYPO3/ExceptionHandler"
+      "Sle\\TYPO3\\ExceptionHandler\\": "TYPO3/ExceptionHandler"
     }
   }
 }
