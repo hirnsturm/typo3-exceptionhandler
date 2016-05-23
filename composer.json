@@ -2,7 +2,7 @@
   "name": "sle/typo3-exceptionhandler",
   "type": "library",
   "license": "MIT",
-  "description": "A TYPO3 advanced exception handling package.",
+  "description": "Simple TYPO3 exception monitoring tool for small and low budget TYPO3 projects.",
   "authors": [
     {
       "name": "Steve Lenz",
