@@ -8,7 +8,9 @@ This package offers a simple and cheap monitoring solution for small and low bud
 - TYPO3 6 or 7
 
 ## Installation
-`composer require sle/typo3-exceptionhandler`
+```bash
+composer require sle/typo3-exceptionhandler
+```
 
 ## Configuration
 The configuration is very easy and done within 3 minutes:
